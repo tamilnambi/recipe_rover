@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:recipe_rover/recipe.dart';
+import 'package:recipe_rover/constant.dart';
+
 void main() {
   runApp( MyApp());
 }
@@ -38,18 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isLoading = false; // Added loading indicator state
 
   Future<void> _searchRecipes(String ingredient) async {
-    const appId = '1f05a08d';
-    const appKey = 'a614fb15c7618687c8cd2382d7a980a9';
-    const endpoint = 'https://api.edamam.com/search';
 
-    print("fetching data");
     try {
       setState(() {
         isLoading = true; // show loading indicator
       });
       final response = await http.get(
           Uri.parse('$endpoint?q=$ingredient&app_id=$appId&app_key=$appKey'));
-      print("data fetched");
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['hits'] != null) {
@@ -59,8 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return {
               'label': recipe['label'],
               'image': recipe['image'],
-              'url': recipe['url'],
-              'ingredients': recipe['ingredientLines'],
+              'uri': recipe['uri'],
             };
           }).toList();
 
@@ -73,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     catch (e) {
-      print('error occured + $e');
+      print('error occurred + $e');
     } finally {
       setState(() {
         isLoading = false; //hide loading indicator
@@ -90,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(
                 height: 50.0,
               ),
-              Padding(padding: EdgeInsets.all(20.0),
+              Padding(padding: const EdgeInsets.all(20.0),
                 child: TextField(
                   controller: _ingredientController,
                   decoration: const InputDecoration(
@@ -100,12 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 10.0,
               ),
               ElevatedButton(onPressed: () {
-                print("Button clicked");
                 _searchRecipes(_ingredientController.text);
               },
                   child: const Text("Search for Recipes")),
               if (isLoading)
-                CircularProgressIndicator() // Show loading indicator while fetching data
+                const CircularProgressIndicator() // Show loading indicator while fetching data
               else
                 if (recipes.isNotEmpty)
                   Expanded(
@@ -116,7 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             return ListTile(
                               title: Text(recipe['label']),
                               subtitle: Image.network(recipe['image']),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(context, 
+                                    MaterialPageRoute(builder: (context)=> RecipeDetails(uri : recipe['uri'])));
+                              },
                             );
                           })),
             ],
