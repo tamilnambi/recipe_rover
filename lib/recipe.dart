@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:recipe_rover/constant.dart';
+import 'package:recipe_rover/detailed_recipe.dart';
 
 
 class RecipeDetails extends StatefulWidget {
@@ -47,6 +48,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
         final recipe = data[0];
         title = recipe['label'];
         image = recipe['image'];
+        url = recipe['url'];
         recipe['ingredientLines'].forEach((item){
           ingredients.add(item);
         });
@@ -93,6 +95,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                                 title: Text(ingredients[index]),
                               );
                             }),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        ElevatedButton(onPressed: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=> DetailedRecipe(url : url, title: title)));
+                        },
+                            child: const Text('View Recipe')),
                       ],
                     )),
               )
