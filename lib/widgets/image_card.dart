@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../pages/search_results.dart';
+
 class ImageCard extends StatefulWidget {
   final String imageUrl;
   final String title;
@@ -46,7 +48,8 @@ class _ImageCardState extends State<ImageCard> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Perform your tap action here
+        //Navigate to SearchResults page with arugument ingredient
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResults(ingredient: widget.title)));
       },
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,

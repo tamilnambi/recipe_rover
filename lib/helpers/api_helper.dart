@@ -23,10 +23,9 @@ class ApiHelper with ChangeNotifier{
             return {
               'label': recipe['label'],
               'image': recipe['image'],
-              'uri': recipe['uri'],
+              'uri': recipe['url'],
             };
           }).toList();
-
           _recipes = recipeData;
           state = AuthState.success;
         }
@@ -39,6 +38,13 @@ class ApiHelper with ChangeNotifier{
             print('error occurred + $e');
             state = AuthState.failed;
           }
+          notifyListeners();
+  }
+
+  void clearData(){
+    _recipes = [];
+    state = AuthState.loading;
+    notifyListeners();
   }
 
   List<Map<String, dynamic>> get recipes => _recipes;

@@ -42,8 +42,10 @@ class _DetailedRecipeState extends State<DetailedRecipe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: WebViewWidget(controller: _controller),
+      appBar: AppBar(title: Text(widget.title),backgroundColor: Colors.white,),
+      body: Container(
+          color: Colors.white,
+          child: SafeArea(child: WebViewWidget(controller: _controller))),
     );
   }
 }

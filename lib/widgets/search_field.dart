@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/search_results.dart';
+
 class SearchField extends StatelessWidget {
   const SearchField({super.key});
 
@@ -28,14 +30,10 @@ class SearchField extends StatelessWidget {
         ),
       ),
       onSubmitted: (String value) {
-        // Your function to handle the text submission
-        handleTextSubmission(value);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResults(ingredient: value)));
       },
     );
   }
 
-  void handleTextSubmission(String value) {
-    // Implement your function here
-    print('Text submitted: $value');
-  }
+
 }

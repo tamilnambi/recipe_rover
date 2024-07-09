@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe_rover/helpers/api_helper.dart';
+import 'package:recipe_rover/helpers/unsplash_provider.dart';
 import 'package:recipe_rover/pages/home_page.dart';
 import 'dart:convert';
 
@@ -12,6 +13,7 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => ApiHelper()),
+          ChangeNotifierProvider(create: (_) => UnsplashProvider()),
         ],
         child: const MyApp(),
   ));
