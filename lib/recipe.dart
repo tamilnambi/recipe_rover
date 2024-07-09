@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:recipe_rover/constant.dart';
+import 'package:recipe_rover/utils/constant.dart';
 import 'package:recipe_rover/detailed_recipe.dart';
 
 

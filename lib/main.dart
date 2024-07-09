@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:recipe_rover/helpers/api_helper.dart';
 import 'package:recipe_rover/pages/home_page.dart';
 import 'dart:convert';
 
 import 'package:recipe_rover/recipe.dart';
-import 'package:recipe_rover/constant.dart';
+import 'package:recipe_rover/utils/constant.dart';
 
 void main() {
-  runApp( const MyApp());
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ApiHelper()),
+        ],
+        child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
